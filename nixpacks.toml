@@ -1,8 +1,0 @@
-[phases.setup]
-nixPkgs = ["python311"]
-
-[phases.install]
-cmds = ["pip install fastapi uvicorn websockets aiofiles"]
-
-[start]
-cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT"
