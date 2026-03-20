@@ -1,1 +1,1 @@
-web: source /app/.venv/bin/activate && uvicorn main:app --host 0.0.0.0 --port $PORT
+web: /app/.venv/bin/pip install fastapi uvicorn websockets aiofiles && /app/.venv/bin/uvicorn main:app --host 0.0.0.0 --port $PORT
