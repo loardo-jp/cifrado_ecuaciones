@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChaosChat</title>
+  <title>Chat del caos</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0f0f0f;
+      background-image: url('fondo.gif');
       color: #c2c0b6;
       font-family: sans-serif;
       height: 100vh;
@@ -259,17 +259,17 @@
 
   <!-- ── Pantalla de configuración ── -->
   <div id="setup">
-    <h1>ChaosChat</h1>
+    <h1>Chat del caos</h1>
     <p>Cifrado de texto con el atractor de Lorenz + RK4</p>
 
     <div>
-      <p class="field-label">Tu nombre</p>
-      <input type="text" id="username" placeholder="ej: Alice">
+      <p class="field-label">Usuario</p>
+      <input type="text" id="username" placeholder="ej: Emilio">
     </div>
 
     <div>
       <p class="field-label">Sala</p>
-      <input type="text" id="room-id" placeholder="ej: sala-secreta">
+      <input type="text" id="room-id" placeholder="ej: sala-privada">
     </div>
 
     <div>
@@ -295,7 +295,7 @@
 
     <!-- Header -->
     <div class="chat-header">
-      <h2>ChaosChat</h2>
+      <h2>Chat del caos</h2>
       <div class="status">
         <div id="status-dot"></div>
         <span id="status-text">conectado</span>
