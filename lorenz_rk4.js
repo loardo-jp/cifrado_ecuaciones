@@ -93,11 +93,9 @@ class LorenzCipher {
       this.x = next.x; this.y = next.y; this.z = next.z;
 
       // Convertir x del atractor a byte (0-255)
-      const keyByte = (
-        Math.abs(Math.floor(this.x * 1000)) +
-        Math.abs(Math.floor(this.y * 100))  +
-        Math.abs(Math.floor(this.z * 10))
-      ) % 256;
+    const keyByte = Math.floor(
+      (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) / 3
+    ) % 256;
 
       // XOR con el byte del texto
       result[i] = bytes[i] ^ keyByte;
