@@ -1,5 +1,3 @@
-// lorenz_rk4.js
-
 function lorenzDerivatives(x, y, z, sigma, rho, beta) {
   return {
     dx: sigma * (y - x),
@@ -94,7 +92,7 @@ class LorenzCipher {
 
       // Convertir x del atractor a byte (0-255)
     const keyByte = Math.floor(
-      (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) / 3
+      (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) * 1000
     ) % 256;
 
       // XOR con el byte del texto
