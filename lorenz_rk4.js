@@ -74,8 +74,6 @@ class LorenzCipher {
   }
 
   encryptText(text) {
-    // Reiniciar desde condición inicial para que cada mensaje
-    // sea independiente del anterior
     this.x = this.x0;
     this.y = this.y0;
     this.z = this.z0;
@@ -90,23 +88,19 @@ class LorenzCipher {
       );
       this.x = next.x; this.y = next.y; this.z = next.z;
 
-      // Convertir x del atractor a byte (0-255)
-    const keyByte = Math.floor(
-      (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) * 1000
-    ) % 256;////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      const keyByte = Math.floor(
+        (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) * 1000
+      ) % 256;
 
-      // XOR con el byte del texto
       result[i] = bytes[i] ^ keyByte;
     }
 
-    // Devolver como hexadecimal
     return Array.from(result)
       .map(b => b.toString(16).padStart(2, '0'))
       .join('');
   }
 
   decryptText(hex) {
-    // Reiniciar desde condición inicial — mismo punto que encryptText
     this.x = this.x0;
     this.y = this.y0;
     this.z = this.z0;
@@ -123,7 +117,11 @@ class LorenzCipher {
       );
       this.x = next.x; this.y = next.y; this.z = next.z;
 
-      const keyByte = Math.abs(Math.floor(this.x * 1000)) % 256;
+      // misma fórmula que encryptText
+      const keyByte = Math.floor(
+        (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) * 1000
+      ) % 256;
+
       result[i] = bytes[i] ^ keyByte;
     }
 
