@@ -5,13 +5,18 @@ let socket     = null;
 let cipher     = null;
 let username   = null;
 
+// ─── Normalizar clave para evitar diferencias de precisión ───
+function parseKey(val) {
+  return parseFloat(parseFloat(val).toFixed(8));
+}
+
 // ─── Conectar al servidor ───
 async function connect() {
   username = document.getElementById("username").value.trim();
   const roomId = document.getElementById("room-id").value.trim();
-  const x0 = parseFloat(document.getElementById("x0").value);
-  const y0 = parseFloat(document.getElementById("y0").value);
-  const z0 = parseFloat(document.getElementById("z0").value);
+  const x0 = parseKey(document.getElementById("x0").value);
+  const y0 = parseKey(document.getElementById("y0").value);
+  const z0 = parseKey(document.getElementById("z0").value);
 
   if (!username || !roomId) {
     alert("Escribe tu nombre y el ID de sala");
@@ -23,10 +28,8 @@ async function connect() {
     return;
   }
 
-  // Aplicar la clave automáticamente al conectar
   cipher = new LorenzCipher(x0, y0, z0);
 
-  // Conectar al WebSocket
   const isLocal = window.location.hostname === "localhost" ||
                   window.location.hostname === "127.0.0.1";
   const url = isLocal
@@ -122,9 +125,9 @@ function appendMessage({ sender, text, encrypted, self }) {
 
 // ─── Cambiar clave en caliente ───
 function applyKey() {
-  const x0 = parseFloat(document.getElementById("x0-live").value);
-  const y0 = parseFloat(document.getElementById("y0-live").value);
-  const z0 = parseFloat(document.getElementById("z0-live").value);
+  const x0 = parseKey(document.getElementById("x0-live").value);
+  const y0 = parseKey(document.getElementById("y0-live").value);
+  const z0 = parseKey(document.getElementById("z0-live").value);
 
   if (isNaN(x0) || isNaN(y0) || isNaN(z0)) {
     alert("Clave inválida");
