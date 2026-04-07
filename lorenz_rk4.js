@@ -89,7 +89,7 @@ class LorenzCipher {
       this.x = next.x; this.y = next.y; this.z = next.z;
 
       const keyByte = Math.floor(
-        (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) * 1000
+        (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) * 1e8
       ) % 256;
 
       result[i] = bytes[i] ^ keyByte;
