@@ -152,12 +152,10 @@
     /* Contenedor de contenido */
     .content {
       flex: 1;
-      overflow-y: auto;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
-    .content::-webkit-scrollbar { width: 6px; }
-    .content::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 3px; }
 
     .tab-pane {
       display: none;
@@ -169,6 +167,12 @@
     .tab-pane.active {
       display: flex;
     }
+
+    #tab-guia { overflow-y: auto; }
+    #tab-guia::-webkit-scrollbar { width: 6px; }
+    #tab-guia::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 3px; }
+
+    #tab-cifrador { overflow: hidden; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(5px); }
@@ -188,7 +192,10 @@
       border-radius: 20px;
       border: 1px solid var(--glass-border);
       box-shadow: var(--shadow);
+      overflow-y: auto;
     }
+    .setup-container::-webkit-scrollbar { width: 6px; }
+    .setup-container::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 3px; }
 
     .field-group {
       display: flex;
