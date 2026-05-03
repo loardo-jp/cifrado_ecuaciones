@@ -78,10 +78,8 @@ class LorenzCipher {
     this.y = this.y0;
     this.z = this.z0;
 
-    const bytes  = new TextEncoder().encode(text);
-    const result = new Uint8Array(bytes.length);
-
-    for (let i = 0; i < bytes.length; i++) {
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
       const next = rk4Step(
         this.x, this.y, this.z,
         this.dt, this.sigma, this.rho, this.beta
@@ -92,43 +90,34 @@ class LorenzCipher {
         (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) * 1e8
       ) % 256;
 
-      result[i] = bytes[i] ^ keyByte;
+      const charCode = text.charCodeAt(i);
+      const encryptedCharCode = charCode ^ keyByte;
+      result += String.fromCharCode(encryptedCharCode);
     }
-
-    return Array.from(result)
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
+    return result;
   }
 
-  decryptText(hex) {
+  decryptText(encryptedText) {
     this.x = this.x0;
     this.y = this.y0;
     this.z = this.z0;
 
-    const bytes  = new Uint8Array(
-      hex.match(/.{1,2}/g).map(b => parseInt(b, 16))
-    );
-    const result = new Uint8Array(bytes.length);
-
-    for (let i = 0; i < bytes.length; i++) {
+    let result = '';
+    for (let i = 0; i < encryptedText.length; i++) {
       const next = rk4Step(
         this.x, this.y, this.z,
         this.dt, this.sigma, this.rho, this.beta
       );
       this.x = next.x; this.y = next.y; this.z = next.z;
 
-      // misma fórmula que encryptText
       const keyByte = Math.floor(
         (Math.abs(this.x) + Math.abs(this.y) + Math.abs(this.z)) * 1e8
       ) % 256;
 
-      result[i] = bytes[i] ^ keyByte;
+      const charCode = encryptedText.charCodeAt(i);
+      const decryptedCharCode = charCode ^ keyByte;
+      result += String.fromCharCode(decryptedCharCode);
     }
-
-    try {
-      return new TextDecoder().decode(result);
-    } catch {
-      return hex;
-    }
+    return result;
   }
 }

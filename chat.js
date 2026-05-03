@@ -42,6 +42,7 @@ async function connect() {
     setStatus("conectado");
     document.getElementById("setup").style.display    = "none";
     document.getElementById("chatbox").style.display  = "flex";
+    document.querySelector(".app-container").classList.add("chat-expanded");
     console.log("Conectado a sala:", roomId);
   };
 
@@ -111,13 +112,13 @@ function appendMessage({ sender, text, encrypted, self }) {
   bubble.className   = "msg-bubble";
   bubble.textContent = text;
 
-  const hex = document.createElement("span");
-  hex.className   = "msg-hex";
-  hex.textContent = encrypted.substring(0, 32) + "...";
+  const raw = document.createElement("span");
+  raw.className   = "msg-raw";
+  raw.textContent = encrypted;
 
   wrapper.appendChild(name);
   wrapper.appendChild(bubble);
-  wrapper.appendChild(hex);
+  wrapper.appendChild(raw);
   feed.appendChild(wrapper);
 
   feed.scrollTop = feed.scrollHeight;
